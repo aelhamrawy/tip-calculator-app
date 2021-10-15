@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <title>Frontend Mentor | Tip calculator app</title>
+</head>
+
+<body>
+  <main id="app" class="col">
+    <h1 style="display: none;">Tip calculator</h1>
+    <img id="logo" src="./images/logo.svg" alt="Logo" />
+    <div class="container row">
+      <div class="controls col">
+        <div class="control col">
+          <label for="bill">Bill</label>
+          <input type="text" name="bill" id="bill" v-model="bill" @keyup="calc()" />
+        </div>
+
+        <div class="tips-wrapper">
+          <div class="col">
+            <label>Select Tip %</label>
+            <div class="tips row">
+              <div class="tip" :class="{active : percentage === 0.05 && customPercentage ===''}"
+                @click="changePrecntage(0.05)">
+                5%
+              </div>
+              <div class="tip" :class="{active : percentage === 0.10 && customPercentage ===''}"
+                @click="changePrecntage(0.10)">
+                10%
+              </div>
+              <div class="tip" :class="{active : percentage === 0.15 && customPercentage ===''}"
+                @click="changePrecntage(0.15)">
+                15%
+              </div>
+              <div class="tip" :class="{active : percentage === 0.25 && customPercentage ===''}"
+                @click="changePrecntage(0.25)">
+                25%
+              </div>
+              <div class="tip" :class="{active : percentage === 0.50 && customPercentage ===''}"
+                @click="changePrecntage(0.50)">
+                50%
+              </div>
+              <div class="control">
+                <input type="text" placeholder="Custom" id="tip-custom" v-model="customPercentage" @keyup="calc()" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="control col">
+          <div class="row" style="justify-content: space-between">
+            <label for="persons">Number of People</label>
+            <span v-if="personsLessThanZero" class="error-txt">Can't be zero</span>
+          </div>
+          <input type="text" :class="{error : personsLessThanZero}" id="persons" v-model="persons" @keyup="calc()" />
+        </div>
+      </div>
+      <div class="result">
+        <div class="col">
+          <div class="row">
+            <label class="result-label">
+              Tip Amount
+              <br />
+              <span>/ person</span>
+            </label>
+            <div id="tip-amount" class="result-amount">
+              {{'$'+amount.toFixed(2)}}
+            </div>
+          </div>
+          <div class="row">
+            <label class="result-label">
+              Total
+              <br />
+              <span>/ person</span>
+            </label>
+            <div id="total-amount" class="result-amount">
+              {{'$'+total.toFixed(2)}}
+            </div>
+          </div>
+          <button class="reset-btn" @click="reset()">RESET</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="./vue@2.js"></script>
+  <script src="./script.js"></script>
+</body>
+
+</html>
